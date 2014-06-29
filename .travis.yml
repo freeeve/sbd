@@ -12,4 +12,5 @@ script:
   - go get github.com/axw/gocov/gocov
   - go get github.com/mattn/goveralls
   - export PATH=$PATH:$HOME/gopath/bin/
+  - pwd
   - goveralls -repotoken i7kP3dNkdpCMvczIw28RX6F325xJ1vQtF
