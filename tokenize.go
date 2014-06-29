@@ -73,7 +73,8 @@ func separateWordsFromEllipses(s string) string {
 	//(re.compile(r'([^\.]|^)(\.{2,})(.?)'), r'\1 \2 \3'),
 	//(re.compile(r'(^|\s)(\.{2,})([^\.\s])'), r'\1\2 \3'),
 	//(re.compile(r'([^\.\s])(\.{2,})($|\s)'), r'\1 \2\3'),
-	s = regexp.MustCompile("")
+	s = regexp.MustCompile("(\\.)(\\.+)").ReplaceAllString(s, " $1$2 ")
+	s = strings.TrimSpace(s)
 	return s
 }
 
@@ -93,20 +94,22 @@ func fixNt(s string) string {
 	//# fix (n 't) --> ( n't)
 	//(re.compile(r'n \'t( |$)'), r" n't\1"),
 	//(re.compile(r'N \'T( |$)'), r" N'T\1"),
-
+	s = regexp.MustCompile("n \\'t( |$)").ReplaceAllString(s, " n't$1")
+	s = regexp.MustCompile("N \\'T( |$)").ReplaceAllString(s, " N'T$1")
 	return s
 }
 
 func separateCant(s string) string {
 	//# treebank tokenizer special words
 	//(re.compile(r'([Cc])annot'), r'\1an not'),
-
+	s = regexp.MustCompile("([Cc])(an)not").ReplaceAllString(s, "$1$2 not")
 	return s
 }
 
 func compactSpaces(s string) string {
 	//# compact spaces into just one
 	//(re.compile(r'\s+'), r' '),
+	s = regexp.MustCompile("\\s+").ReplaceAllString(s, " ")
 	return s
 }
 

@@ -70,12 +70,30 @@ func (s *TokenizeSuite) TestSeparateNoNum(c *C) {
 }
 
 func (s *TokenizeSuite) TestSeparateWordsFromEllipses(c *C) {
+	c.Assert(separateWordsFromEllipses("hello.."), Equals, "hello ..")
 	c.Assert(separateWordsFromEllipses("hello..."), Equals, "hello ...")
+	c.Assert(separateWordsFromEllipses("hello...."), Equals, "hello ....")
+	c.Assert(separateWordsFromEllipses("...hello..."), Equals, "... hello ...")
 }
 
 func (s *TokenizeSuite) TestFixPercentDollarAmpersand(c *C) {
 	c.Assert(fixPercentDollarAmpersand("hello& wut"), Equals, "hello & wut")
 	c.Assert(fixPercentDollarAmpersand("hello&wut"), Equals, "hello & wut")
+}
+
+func (s *TokenizeSuite) TestFixNt(c *C) {
+	c.Assert(fixNt("can 't"), Equals, "ca n't")
+	c.Assert(fixNt("CAN 'T"), Equals, "CA N'T")
+}
+
+func (s *TokenizeSuite) TestSeparateCant(c *C) {
+	c.Assert(separateCant("Cannot"), Equals, "Can not")
+	c.Assert(separateCant("cannot"), Equals, "can not")
+}
+
+func (s *TokenizeSuite) TestCompactSpaces(c *C) {
+	c.Assert(compactSpaces("hello     wut"), Equals, "hello wut")
+	c.Assert(compactSpaces("hello     wut      "), Equals, "hello wut ")
 }
 
 func (s *TokenizeSuite) TestTokenize(c *C) {
