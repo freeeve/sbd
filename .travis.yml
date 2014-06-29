@@ -12,4 +12,4 @@ script:
   - go get github.com/axw/gocov/gocov
   - go get github.com/mattn/goveralls
   - export PATH=$PATH:$HOME/gopath/bin/
-  - goveralls -repotoken i7kP3dNkdpCMvczIw28RX6F325xJ1vQtF -service=travis-pro
+  - goveralls -repotoken PezxhvDPjk51FHwT56gBbmjAqWthm32Rn -service=travis-pro
